@@ -3,7 +3,7 @@
 
 Light deserialize(String stringJson)
 {
-    StaticJsonDocument<200> doc;
+    StaticJsonDocument<220> doc;
     const char *json = stringJson.c_str();
 
     // Deserialize the JSON document
@@ -22,7 +22,9 @@ Light deserialize(String stringJson)
     uint32_t color = defaultLight.color;
     bool powerOn = defaultLight.powerOn;
     uint8_t brightness = defaultLight.brightness;
+    bool autoBrightness = defaultLight.autoBrightness;
     bool randomMode = defaultLight.randomMode;
+    bool partyMode = defaultLight.partyMode;
 
     if (doc["color"])
     {
@@ -40,10 +42,19 @@ Light deserialize(String stringJson)
         brightness = doc["brightness"];
     }
 
+    if (doc["autoBrightness"])
+    {
+        autoBrightness = doc["autoBrightness"];
+    }
+
     if (doc["randomMode"])
     {
         randomMode = doc["randomMode"];
     }
+    if (doc["partyMode"])
+    {
+        partyMode = doc["partyMode"];
+    }
 
-    return Light(color, powerOn, brightness, randomMode);
+    return Light(color, powerOn, brightness, autoBrightness, randomMode, partyMode);
 }
